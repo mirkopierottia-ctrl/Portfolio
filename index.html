@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirko | Frontend Engineer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="portfolio-splash">
+        <div class="splash-content">
+            <span class="splash-logo">M.</span>
+            <div class="splash-progress-wrapper">
+                <div class="splash-progress-bar" id="splash-progress-bar"></div>
+            </div>
+            <span class="splash-counter" id="splash-counter">0%</span>
+        </div>
+    </div>
+
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">M.</div>
+        <div class="nav-links">
+            <button id="theme-toggle" class="icon-btn" aria-label="Toggle Theme">
+                <i data-lucide="moon"></i>
+            </button>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#work" class="nav-link">Work</a>
+            <a href="#contact" class="nav-btn">Let's Talk</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <canvas id="hero-particles" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none;"></canvas>
+        <div class="hero-bg-gradient"></div>
+        <div class="container">
+            <h1 class="hero-title">
+                <span class="line"><span class="word">CRAFTING</span></span>
+                <span class="line"><span class="word text-accent">DIGITAL</span></span>
+                <span class="line"><span class="word">EXPERIENCES.</span></span>
+            </h1>
+            <div class="hero-bottom">
+                <p class="hero-subtitle">Mirko. Frontend Engineer specializing in high-performance web applications, complex UI architectures, and immersive animations.</p>
+                <div class="scroll-indicator">
+                    <span>Scroll to explore</span>
+                    <i data-lucide="arrow-down"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee Banner -->
+    <div class="marquee-container">
+        <div class="marquee">
+            <span>JAVASCRIPT ES6+</span> <span class="dot">•</span>
+            <span>REACT.JS</span> <span class="dot">•</span>
+            <span>CSS GRID / FLEXBOX</span> <span class="dot">•</span>
+            <span>GSAP ANIMATIONS</span> <span class="dot">•</span>
+            <span>NODE.JS</span> <span class="dot">•</span>
+            <span>TAILWIND CSS</span> <span class="dot">•</span>
+            <span>UI/UX DESIGN</span> <span class="dot">•</span>
+            <span>SINGLE PAGE APPLICATIONS</span> <span class="dot">•</span>
+            <span>CHART.JS</span> <span class="dot">•</span>
+            <!-- Duplicate for infinite scroll -->
+            <span>JAVASCRIPT ES6+</span> <span class="dot">•</span>
+            <span>REACT.JS</span> <span class="dot">•</span>
+            <span>CSS GRID / FLEXBOX</span> <span class="dot">•</span>
+            <span>GSAP ANIMATIONS</span> <span class="dot">•</span>
+            <span>NODE.JS</span> <span class="dot">•</span>
+            <span>TAILWIND CSS</span> <span class="dot">•</span>
+            <span>UI/UX DESIGN</span> <span class="dot">•</span>
+            <span>SINGLE PAGE APPLICATIONS</span> <span class="dot">•</span>
+            <span>CHART.JS</span> <span class="dot">•</span>
+        </div>
+    </div>
+
+    <!-- Experience Horizontal Scroll -->
+    <section class="experience" id="experience">
+        <div class="experience-container">
+            <div class="experience-header">
+                <h2>Journey.</h2>
+                <p>A timeline of my professional evolution.</p>
+            </div>
+            
+            <div class="horizontal-track">
+                <!-- Timeline Items -->
+                <div class="timeline-card">
+                    <div class="timeline-year">2022 - 2024</div>
+                    <h3>Web UI/UX Designer</h3>
+                    <p class="company">Creative Agency X</p>
+                    <p class="desc">Designed and built pixel-perfect landing pages. Bridged the gap between the design team and engineering.</p>
+                </div>
+                <div class="timeline-card">
+                    <div class="timeline-year">2024 - 2026</div>
+                    <h3>Frontend Developer</h3>
+                    <p class="company">Tech Innovators Inc.</p>
+                    <p class="desc">Lead developer for internal tools. Improved rendering performance by 40% and established a company-wide design system.</p>
+                </div>
+                <div class="timeline-card">
+                    <div class="timeline-year">2026 - Present</div>
+                    <h3>Senior Frontend Engineer</h3>
+                    <p class="company">Freelance / Fiverr</p>
+                    <p class="desc">Architecting complex Single Page Applications, SaaS dashboards, and high-end e-commerce experiences using Vanilla JS, React, and GSAP.</p>
+                </div>
+                <div class="timeline-card timeline-end">
+                    <h3>The Journey Continues...</h3>
+                    <i data-lucide="arrow-right-circle" style="width: 48px; height: 48px; color: var(--accent); margin-top: 1rem;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selected Works -->
+    <section class="work" id="work">
+        <div class="container">
+            <div class="section-header">
+                <h2>Selected Works</h2>
+                <p>A collection of my latest high-end projects.</p>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1: NOCTURNO -->
+                <a href="NOCTURNO/index.html" class="project-card">
+                    <div class="project-image-wrapper">
+                        <div class="project-visual nocturno-visual">
+                            <h2>NOCTURNO</h2>
+                            <p>Premium Urban Wear</p>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>NOCTURNO E-commerce</h3>
+                        <p>High-end fashion storefront featuring custom GSAP scroll animations, state management for cart, and dynamic UI drawers.</p>
+                        <ul class="tech-list">
+                            <li>Vanilla JS</li>
+                            <li>GSAP</li>
+                            <li>Lenis Scroll</li>
+                            <li>CSS Grid</li>
+                        </ul>
+                    </div>
+                </a>
+
+                <!-- Project 2: QUANTUM -->
+                <a href="QUANTUM/index.html" class="project-card">
+                    <div class="project-image-wrapper">
+                        <div class="project-visual quantum-visual">
+                            <h2>QUANTUM</h2>
+                            <p>Finance Dashboard</p>
+                            <i data-lucide="hexagon" style="width: 48px; height: 48px; margin-top: 1rem; color: #ffffff;"></i>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>QUANTUM Dashboard</h3>
+                        <p>Complex Single Page Application (SPA) built without frameworks. Features interactive Chart.js data viz and advanced DOM manipulation.</p>
+                        <ul class="tech-list">
+                            <li>Vanilla JS SPA</li>
+                            <li>Chart.js</li>
+                            <li>Glassmorphism</li>
+                            <li>CSS Variables</li>
+                        </ul>
+                    </div>
+                </a>
+
+                <!-- Project 3: VICTORIA REINA -->
+                <a href="VICTORIA_REINA/index.html" class="project-card">
+                    <div class="project-image-wrapper">
+                        <div class="project-visual victoria-visual">
+                            <img src="VICTORIA_REINA/assets/logo.png" alt="Victoria Reina" style="width: 60px; margin-bottom: 1rem;">
+                            <h2>Victoria Reina</h2>
+                            <p style="color: #666; font-family: sans-serif; letter-spacing: 1px; margin-top: 0.5rem; font-size: 0.9rem;">E-Commerce & Catalog</p>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Victoria Reina Storefront</h3>
+                        <p>A highly interactive, aesthetic digital catalog. Features dynamic category filtering, a seamless cart experience, WhatsApp API integration, and automatic A4 PDF catalog generation.</p>
+                        <ul class="tech-list">
+                            <li>Vanilla JS</li>
+                            <li>Print CSS (PDF)</li>
+                            <li>Responsive Design</li>
+                            <li>WhatsApp Integration</li>
+                        </ul>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Contact -->
+    <section class="about-contact" id="contact">
+        <div class="container">
+            <div class="split-layout">
+                <div class="about-col">
+                    <h2>Philosophy</h2>
+                    <p class="about-text">I believe that the web should be both functional and beautiful. My approach bridges the gap between robust software engineering and pixel-perfect design aesthetics. If you are looking for a developer who understands both the "how it works" and the "how it feels", you're in the right place.</p>
+                </div>
+                <div class="contact-col">
+                    <h2>Let's build something extraordinary.</h2>
+                    
+                    <form id="contact-form" class="custom-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required rows="4" placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" class="btn-submit">
+                            <span class="btn-text">Send Message</span>
+                            <i data-lucide="send" class="btn-icon"></i>
+                        </button>
+                        <div id="form-success" class="form-success" style="display: none;">
+                            <i data-lucide="check-circle"></i> Message sent successfully!
+                        </div>
+                    </form>
+
+                    <div class="social-links">
+                        <a href="#">LinkedIn</a>
+                        <a href="#">GitHub</a>
+                        <a href="https://www.fiverr.com/mirkopierotti/buying?source=avatar_menu_profile" target="_blank">Fiverr Profile</a>
+                        <a href="mailto:mirkopierottia@gmail.com">Email Me</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 Mirko Frontend Engineer. All rights reserved.</p>
+                <p>Designed and built with passion.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
