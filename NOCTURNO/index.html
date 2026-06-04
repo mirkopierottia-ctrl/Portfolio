@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOCTURNO | High-End Oversize Streetwear</title>
+    <meta name="description" content="NOCTURNO - Premium oversize clothing brand from Buenos Aires. Discover the new collection.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <div class="loader">
+        <h1 class="loader-text">NOCTURNO</h1>
+    </div>
+
+    <!-- Smooth Scroll Wrapper -->
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+
+            <!-- Navbar -->
+            <nav class="navbar" id="navbar">
+                <div class="nav-links">
+                    <a href="#collection" class="nav-link hover-target">Colección</a>
+                    <a href="#about-modal" id="about-trigger" class="nav-link hover-target">Nosotros</a>
+                </div>
+                <div class="nav-logo hover-target">
+                    <a href="#">NOCTURNO</a>
+                </div>
+                <div class="nav-icons">
+                    <i data-lucide="search" class="icon hover-target"></i>
+                    <i data-lucide="shopping-bag" id="cart-trigger" class="icon hover-target"></i>
+                </div>
+            </nav>
+
+            <!-- Hero Section -->
+            <section class="hero" id="hero">
+                <div class="hero-bg" id="hero-bg"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title" id="hero-title">GRAVEDAD <br> <span class="stroke-text">CERO.</span></h1>
+                    <p class="hero-subtitle">La nueva colección oversize. Diseñado en Buenos Aires.</p>
+                    <a href="#collection" class="btn-primary hover-target">Explorar Colección</a>
+                </div>
+                <div class="scroll-indicator">
+                    <span>SCROLL</span>
+                    <div class="line"></div>
+                </div>
+            </section>
+
+            <!-- Marquee Section -->
+            <div class="marquee-section">
+                <div class="marquee-content">
+                    <span>OVERSIZE ESSENTIALS</span>
+                    <span class="dot">·</span>
+                    <span>PREMIUM STREETWEAR</span>
+                    <span class="dot">·</span>
+                    <span>BUENOS AIRES DESIGN</span>
+                    <span class="dot">·</span>
+                    <span>OVERSIZE ESSENTIALS</span>
+                    <span class="dot">·</span>
+                    <span>PREMIUM STREETWEAR</span>
+                    <span class="dot">·</span>
+                    <span>BUENOS AIRES DESIGN</span>
+                    <span class="dot">·</span>
+                </div>
+            </div>
+
+            <!-- Featured Collection (Parallax Gallery) -->
+            <section class="collection" id="collection">
+                <div class="section-header">
+                    <h2 class="section-title">NUEVA TEMPORADA</h2>
+                    <p>Cortes amplios, telas pesadas. El estándar porteño.</p>
+                </div>
+                <div class="gallery-container">
+                    <!-- Cards will be injected via JS or hardcoded here -->
+                    <div class="gallery-item item-left hover-target" data-speed="0.8">
+                        <div class="img-wrapper quick-view-trigger" data-name="HOODIE 'ECLIPSE'" data-price="85000" data-img="assets/hoodie-dark.jpg" data-desc="Hoodie oversize de algodón pesado (450gsm). Corte cuadrado, hombros caídos y capucha amplia. Ideal para el invierno en la ciudad.">
+                            <img src="assets/hoodie-dark.jpg" alt="Hoodie Oscuro" class="parallax-img">
+                        </div>
+                        <div class="item-info">
+                            <h3>HOODIE 'ECLIPSE'</h3>
+                            <div class="price-action">
+                                <p>$ 85.000 ARS</p>
+                                <button class="add-to-cart hover-target" data-name="HOODIE 'ECLIPSE'" data-price="85000" data-img="assets/hoodie-dark.jpg">AÑADIR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item item-center hover-target" data-speed="1.1">
+                        <div class="img-wrapper quick-view-trigger" data-name="REMERA 'BOX' OFF-WHITE" data-price="35000" data-img="assets/tshirt-white.jpg" data-desc="Remera manga corta de corte muy holgado. 100% algodón premium, cuello cerrado y gran durabilidad.">
+                            <img src="assets/tshirt-white.jpg" alt="Remera Blanca Oversize" class="parallax-img">
+                        </div>
+                        <div class="item-info">
+                            <h3>REMERA 'BOX' OFF-WHITE</h3>
+                            <div class="price-action">
+                                <p>$ 35.000 ARS</p>
+                                <button class="add-to-cart hover-target" data-name="REMERA 'BOX' OFF-WHITE" data-price="35000" data-img="assets/tshirt-white.jpg">AÑADIR</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item item-right hover-target" data-speed="0.9">
+                        <div class="img-wrapper quick-view-trigger" data-name="CARGO 'NOCTURNO' V2" data-price="110000" data-img="assets/pants-cargo.jpg" data-desc="Pantalón cargo de tiro bajo y bota muy ancha. Múltiples bolsillos funcionales y ajuste regulable en cintura.">
+                            <img src="assets/pants-cargo.jpg" alt="Pantalón Cargo" class="parallax-img">
+                        </div>
+                        <div class="item-info">
+                            <h3>CARGO 'NOCTURNO' V2</h3>
+                            <div class="price-action">
+                                <p>$ 110.000 ARS</p>
+                                <button class="add-to-cart hover-target" data-name="CARGO 'NOCTURNO' V2" data-price="110000" data-img="assets/pants-cargo.jpg">AÑADIR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lookbook Section -->
+            <section class="lookbook" id="lookbook">
+                <div class="lookbook-inner">
+                    <div class="lookbook-text" data-speed="0.9">
+                        <h2>REDEFINIENDO EL VOLUMEN.</h2>
+                        <p>Nocturno nace en las calles de BA. No hacemos ropa ajustada. Creemos en la libertad de movimiento, en el peso de un buen algodón, y en la caída perfecta. Nuestras prendas están diseñadas para destacar sin esfuerzo.</p>
+                        <a href="#" class="btn-outline hover-target">Leer Manifiesto</a>
+                    </div>
+                    <div class="lookbook-img-container" data-speed="1.1">
+                        <img src="assets/lookbook-main.jpg" alt="Lookbook Nocturno" class="lookbook-img">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-top">
+                    <h1 class="footer-logo">NOCTURNO</h1>
+                    <div class="newsletter">
+                        <h3>UNITE AL CLUB</h3>
+                        <div class="input-group">
+                            <input type="email" placeholder="TU EMAIL" class="hover-target">
+                            <button class="hover-target"><i data-lucide="arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="footer-links">
+                        <a href="#" class="hover-target">Instagram</a>
+                        <a href="#" class="hover-target">TikTok</a>
+                    </div>
+                    <p>&copy; 2026 NOCTURNO BUENOS AIRES.</p>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Modals & Overlays -->
+    <div class="overlay-backdrop" id="overlay-backdrop"></div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h2>TU CARRITO</h2>
+            <i data-lucide="x" class="close-btn hover-target" id="close-cart"></i>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Items injected by JS -->
+            <p class="empty-cart-msg">Tu carrito está vacío.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>TOTAL:</span>
+                <span id="cart-total-price">$ 0 ARS</span>
+            </div>
+            <button class="btn-primary hover-target w-100" id="checkout-btn">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div class="about-modal" id="about-modal">
+        <i data-lucide="x" class="close-btn hover-target" id="close-about"></i>
+        <div class="about-content">
+            <h2 class="about-title">NOSOTROS</h2>
+            <div class="about-text">
+                <p><strong>NOCTURNO</strong> nació en 2026 en las calles oscuras de Buenos Aires.</p>
+                <p>Nuestra visión es redefinir el streetwear aportando cortes de volumen extremo, texturas pesadas y un enfoque en la calidad sin compromisos.</p>
+                <p>No seguimos tendencias; construimos la silueta del futuro.</p>
+                <br>
+                <p class="signature">BA. OVR. STUDIO.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Success Overlay -->
+    <div class="success-overlay" id="success-overlay">
+        <div class="success-content">
+            <h2 class="success-title">ORDEN CONFIRMADA</h2>
+            <p class="success-desc">Gracias por tu compra. Te enviamos los detalles a tu email.</p>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="quick-view-modal" id="quick-view-modal">
+        <i data-lucide="x" class="close-btn hover-target" id="close-quick-view"></i>
+        <div class="qv-content">
+            <div class="qv-image">
+                <img src="" alt="Product" id="qv-img">
+            </div>
+            <div class="qv-details">
+                <h2 id="qv-title">Producto</h2>
+                <p class="qv-price" id="qv-price">$ 0 ARS</p>
+                <p class="qv-desc" id="qv-desc">Descripción</p>
+                
+                <div class="qv-sizes">
+                    <p>TALLE:</p>
+                    <div class="size-options">
+                        <button class="size-btn">S</button>
+                        <button class="size-btn active">M</button>
+                        <button class="size-btn">L</button>
+                        <button class="size-btn">XL</button>
+                    </div>
+                </div>
+                
+                <button class="btn-primary hover-target w-100" id="qv-add-to-cart">AÑADIR AL CARRITO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Use local Lenis if CDN fails, but we'll try CDN first -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.32/dist/lenis.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

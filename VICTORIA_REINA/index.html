@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Victoria Reina | Regalería Cristiana</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-logo-container" id="splash-logo-container">
+            <img src="assets/logo.png" alt="Victoria Reina Logo" class="splash-img">
+            <h1 class="splash-text">Victoria Reina</h1>
+        </div>
+    </div>
+
+    <!-- App Container -->
+    <div id="app-container" style="opacity: 0; visibility: hidden; transition: opacity 1s ease;">
+        <!-- Top Bar -->
+    <div class="top-bar">
+        <span class="top-bar-text">Envíos gratis en compras superiores a $50,000 ARS</span>
+        <span class="top-bar-contact">
+            <i data-lucide="phone" style="width: 14px; height: 14px; margin-right: 5px; margin-left: 15px;"></i> 
+            WhatsApp: +54 9 3434 77-6553
+        </span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <button class="icon-btn menu-btn" aria-label="Menu">
+                <i data-lucide="menu"></i>
+            </button>
+            <div class="nav-links">
+                <a href="#biblias">Biblias</a>
+                <a href="#accesorios">Accesorios</a>
+                <a href="#regalos">Regalos</a>
+            </div>
+        </div>
+
+        <div class="logo">
+            <img src="assets/logo.png" alt="Victoria Reina Logo" class="logo-img">
+            <h1>Victoria Reina</h1>
+        </div>
+
+        <div class="nav-right">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Buscar productos..." class="search-input">
+                <button class="icon-btn search-btn" aria-label="Buscar">
+                    <i data-lucide="search"></i>
+                </button>
+            </div>
+            <button class="icon-btn cart-btn" id="cart-toggle" aria-label="Carrito">
+                <i data-lucide="shopping-bag"></i>
+                <span class="cart-count">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-subtitle">Nueva Colección</span>
+            <h2 class="hero-title">Inspiración Divina</h2>
+            <p class="hero-text">Descubre nuestra exclusiva selección de biblias y regalos pensados para edificar el alma.</p>
+            <a href="#productos" class="btn-primary">Ver Catálogo</a>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="feature-item">
+            <i data-lucide="book-open"></i>
+            <h3>Variedad de Biblias</h3>
+            <p>Traducciones para cada necesidad.</p>
+        </div>
+        <div class="feature-item">
+            <i data-lucide="heart"></i>
+            <h3>Detalles Únicos</h3>
+            <p>Regalería pensada con propósito.</p>
+        </div>
+        <div class="feature-item">
+            <i data-lucide="truck"></i>
+            <h3>Envíos a Todo el País</h3>
+            <p>Llevamos la palabra a tu hogar.</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="catalogo">
+        <div class="print-header">
+            <img src="assets/logo.png" alt="Victoria Reina">
+            <h2>Catálogo Exclusivo</h2>
+            <p>Envíanos un WhatsApp para realizar tu pedido</p>
+        </div>
+        <div class="section-header">
+            <h2>Nuestra Colección</h2>
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="biblias">Biblias</button>
+                <button class="filter-btn" data-filter="accesorios">Accesorios</button>
+            </div>
+        </div>
+
+        <div class="products-grid" id="products-container">
+            <!-- Product Cards will be injected by JS -->
+        </div>
+    </section>
+
+    <!-- Cart Drawer -->
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <button class="icon-btn close-cart" id="close-cart">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items injected by JS -->
+            <div class="empty-cart-message">Tu carrito está vacío.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-price">$0</span>
+            </div>
+            <button class="btn-primary w-100" id="checkout-btn">
+                Comprar por WhatsApp <i data-lucide="message-circle" style="width: 18px; margin-left: 8px;"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h2>Victoria Reina</h2>
+                <p>Accesorios y Regalería Cristiana</p>
+                <p style="margin-top: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95rem; color: var(--accent-gold);">
+                    <i data-lucide="message-circle" style="width: 18px;"></i> +54 9 3434 77-6553
+                </p>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i data-lucide="instagram"></i></a>
+                <a href="#"><i data-lucide="facebook"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Victoria Reina. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

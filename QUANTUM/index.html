@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUANTUM Finance | Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Splash / Login Screen -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo-container" id="splash-logo-container">
+                <i data-lucide="hexagon" class="splash-icon"></i>
+                <h2 class="splash-title">QUANTUM</h2>
+            </div>
+            <div class="splash-login" id="splash-login" style="opacity: 0; pointer-events: none; transform: translateY(20px);">
+                <img src="https://ui-avatars.com/api/?name=Mirko+User&background=0D1117&color=00FF9D" alt="User Avatar" class="splash-avatar">
+                <h3>Bienvenido de nuevo, Mirko</h3>
+                <p class="text-secondary" style="margin-bottom: 2rem;">Validando sesión segura...</p>
+                <button class="btn-primary w-100" id="login-btn">
+                    Desbloquear Sistema <i data-lucide="unlock"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container" id="app-container" style="opacity: 0; visibility: hidden; transition: opacity 0.8s ease;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon"><i data-lucide="hexagon"></i></div>
+                    <h2>QUANTUM</h2>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-target="view-dashboard">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-target="view-portfolio">
+                    <i data-lucide="wallet"></i>
+                    <span>Portafolio</span>
+                </a>
+                <a href="#" class="nav-item" data-target="view-transactions">
+                    <i data-lucide="arrow-right-left"></i>
+                    <span>Transacciones</span>
+                </a>
+                <a href="#" class="nav-item" data-target="view-analytics">
+                    <i data-lucide="pie-chart"></i>
+                    <span>Analíticas</span>
+                </a>
+                <a href="#" class="nav-item" data-target="view-cards">
+                    <i data-lucide="credit-card"></i>
+                    <span>Tarjetas</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Configuración</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="log-out"></i>
+                    <span>Cerrar Sesión</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="search-bar">
+                    <i data-lucide="search"></i>
+                    <input type="text" placeholder="Buscar transacciones, activos...">
+                </div>
+                <div class="topbar-actions">
+                    <!-- Notifications -->
+                    <div class="dropdown-container" id="notif-container">
+                        <button class="icon-btn" id="notif-btn">
+                            <i data-lucide="bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <div class="dropdown-menu notif-menu">
+                            <div class="dropdown-header">Notificaciones</div>
+                            <div class="dropdown-item">
+                                <div class="tx-icon positive"><i data-lucide="arrow-down-left"></i></div>
+                                <div>
+                                    <p>Transferencia recibida</p>
+                                    <small class="text-secondary">Hace 2 horas</small>
+                                </div>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="tx-icon warning"><i data-lucide="shield-alert"></i></div>
+                                <div>
+                                    <p>Intento de login inusual</p>
+                                    <small class="text-secondary">Hace 5 horas</small>
+                                </div>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="tx-icon neutral"><i data-lucide="info"></i></div>
+                                <div>
+                                    <p>Actualización de sistema</p>
+                                    <small class="text-secondary">Ayer</small>
+                                </div>
+                            </div>
+                            <div class="dropdown-footer text-accent text-center cursor-pointer">Ver todas</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Profile -->
+                    <div class="dropdown-container" id="profile-container">
+                        <div class="user-profile" id="profile-btn">
+                            <img src="https://ui-avatars.com/api/?name=Mirko+User&background=0D1117&color=00FF9D" alt="User Avatar">
+                            <div class="user-info">
+                                <p class="user-name">Mirko</p>
+                                <p class="user-role">Premium</p>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu profile-menu">
+                            <div class="dropdown-item cursor-pointer">
+                                <i data-lucide="user"></i> Mi Perfil
+                            </div>
+                            <div class="dropdown-item cursor-pointer">
+                                <i data-lucide="settings"></i> Ajustes de Cuenta
+                            </div>
+                            <div class="dropdown-item cursor-pointer">
+                                <i data-lucide="help-circle"></i> Soporte Técnico
+                            </div>
+                            <div class="dropdown-item cursor-pointer text-negative" style="border-top: 1px solid var(--border-color); margin-top: 0.5rem; padding-top: 1rem;">
+                                <i data-lucide="log-out"></i> Cerrar Sesión
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- View Containers -->
+            <div class="view-container">
+                
+                <!-- Dashboard Content (Active View) -->
+                <div class="app-view active" id="view-dashboard">
+                    <div class="dashboard-content">
+                        <div class="header-title">
+                            <h1>Visión General</h1>
+                            <p>Bienvenido de nuevo, aquí está tu resumen financiero.</p>
+                        </div>
+
+                <!-- KPI Cards -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <h3>Balance Total</h3>
+                            <i data-lucide="dollar-sign" class="text-accent"></i>
+                        </div>
+                        <h2 class="kpi-value" id="total-balance">$124,500.00</h2>
+                        <div class="kpi-trend positive">
+                            <i data-lucide="trending-up"></i>
+                            <span>+12.5% este mes</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <h3>Ingresos (30d)</h3>
+                            <i data-lucide="arrow-down-left" class="text-positive"></i>
+                        </div>
+                        <h2 class="kpi-value">$18,240.50</h2>
+                        <div class="kpi-trend positive">
+                            <i data-lucide="trending-up"></i>
+                            <span>+4.2% este mes</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <h3>Gastos (30d)</h3>
+                            <i data-lucide="arrow-up-right" class="text-negative"></i>
+                        </div>
+                        <h2 class="kpi-value">$4,120.00</h2>
+                        <div class="kpi-trend negative">
+                            <i data-lucide="trending-down"></i>
+                            <span>-1.5% este mes</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <h3>Activos Cripto</h3>
+                            <i data-lucide="bitcoin" class="text-accent"></i>
+                        </div>
+                        <h2 class="kpi-value">2.45 BTC</h2>
+                        <div class="kpi-trend positive">
+                            <i data-lucide="trending-up"></i>
+                            <span>+8.4% este mes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Grid Layout -->
+                <div class="main-grid">
+                    <!-- Chart Section -->
+                    <div class="chart-section card">
+                        <div class="card-header">
+                            <h3>Rendimiento del Portafolio</h3>
+                            <select class="custom-select" id="chart-filter">
+                                <option value="6m">Últimos 6 meses</option>
+                                <option value="1y">Último año</option>
+                                <option value="all">Máximo histórico</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="portfolioChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Quick Transfer -->
+                    <div class="transfer-section card">
+                        <div class="card-header">
+                            <h3>Transferencia Rápida</h3>
+                        </div>
+                        <div class="recent-contacts" id="recent-contacts">
+                            <div class="contact" data-name="Ana G.">
+                                <img src="https://ui-avatars.com/api/?name=Ana+G&background=2d3748&color=fff" alt="Ana">
+                                <span>Ana G.</span>
+                            </div>
+                            <div class="contact" data-name="Carlos M.">
+                                <img src="https://ui-avatars.com/api/?name=Carlos+M&background=2d3748&color=fff" alt="Carlos">
+                                <span>Carlos M.</span>
+                            </div>
+                            <div class="contact" data-name="Lucia F.">
+                                <img src="https://ui-avatars.com/api/?name=Lucia+F&background=2d3748&color=fff" alt="Lucia">
+                                <span>Lucia F.</span>
+                            </div>
+                            <div class="contact add-new" id="add-contact-btn">
+                                <i data-lucide="plus"></i>
+                                <span>Nuevo</span>
+                            </div>
+                        </div>
+                        <div class="transfer-form">
+                            <div class="input-group">
+                                <span>$</span>
+                                <input type="number" id="transfer-amount" placeholder="0.00" value="150.00">
+                                <span>USD</span>
+                            </div>
+                            <button class="btn-primary w-100" id="transfer-btn">
+                                <span class="btn-text-inner">Enviar Fondos</span> 
+                                <i data-lucide="send" class="btn-icon-inner"></i>
+                            </button>
+                            <div id="transfer-msg" class="transfer-msg"></div>
+                        </div>
+                    </div>
+
+                    <!-- Transactions Table -->
+                    <div class="transactions-section card span-2">
+                        <div class="card-header">
+                            <h3>Transacciones Recientes</h3>
+                            <button class="btn-text">Ver todas</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Detalle</th>
+                                        <th>Categoría</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+                                        <th class="text-right">Monto</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactions-tbody">
+                                    <tr>
+                                        <td>
+                                            <div class="tx-detail">
+                                                <div class="tx-icon positive"><i data-lucide="arrow-down-left"></i></div>
+                                                <div>
+                                                    <p class="tx-name">Upwork Escrow</p>
+                                                    <p class="tx-sub">Transferencia entrante</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Ingresos</td>
+                                        <td>02 Jun, 2026</td>
+                                        <td><span class="badge badge-success">Completado</span></td>
+                                        <td class="text-right positive">+$ 2,450.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="tx-detail">
+                                                <div class="tx-icon negative"><i data-lucide="arrow-up-right"></i></div>
+                                                <div>
+                                                    <p class="tx-name">Apple Store</p>
+                                                    <p class="tx-sub">Tarjeta final 4092</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Tecnología</td>
+                                        <td>01 Jun, 2026</td>
+                                        <td><span class="badge badge-success">Completado</span></td>
+                                        <td class="text-right">-$ 1,299.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="tx-detail">
+                                                <div class="tx-icon neutral"><i data-lucide="refresh-cw"></i></div>
+                                                <div>
+                                                    <p class="tx-name">Binance Exchange</p>
+                                                    <p class="tx-sub">Compra BTC</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Inversión</td>
+                                        <td>30 May, 2026</td>
+                                        <td><span class="badge badge-warning">Procesando</span></td>
+                                        <td class="text-right">-$ 500.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="tx-detail">
+                                                <div class="tx-icon positive"><i data-lucide="arrow-down-left"></i></div>
+                                                <div>
+                                                    <p class="tx-name">Dividendo AAPL</p>
+                                                    <p class="tx-sub">Brokerage Account</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Inversión</td>
+                                        <td>28 May, 2026</td>
+                                        <td><span class="badge badge-success">Completado</span></td>
+                                        <td class="text-right positive">+$ 145.20</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- End .dashboard-content -->
+            </div> <!-- End #view-dashboard -->
+
+            <!-- View: Portfolio -->
+            <div class="app-view" id="view-portfolio">
+                <div class="dashboard-content">
+                    <div class="header-title">
+                        <h1>Portafolio de Activos</h1>
+                        <p>Desglose de tus activos y distribución.</p>
+                    </div>
+                    <div class="asset-grid">
+                        <div class="asset-card card">
+                            <div class="asset-header">
+                                <i data-lucide="bitcoin" class="text-accent" style="width: 32px; height: 32px;"></i>
+                                <div class="asset-name">
+                                    <h3>Bitcoin</h3>
+                                    <p>BTC</p>
+                                </div>
+                            </div>
+                            <div class="asset-balance">
+                                <h2>$68,450.20</h2>
+                                <p>2.45 BTC</p>
+                            </div>
+                            <div class="kpi-trend positive">
+                                <i data-lucide="trending-up"></i>
+                                <span>+8.4% hoy</span>
+                            </div>
+                        </div>
+                        <div class="asset-card card">
+                            <div class="asset-header">
+                                <i data-lucide="box" style="width: 32px; height: 32px; color: #627EEA;"></i>
+                                <div class="asset-name">
+                                    <h3>Ethereum</h3>
+                                    <p>ETH</p>
+                                </div>
+                            </div>
+                            <div class="asset-balance">
+                                <h2>$12,340.50</h2>
+                                <p>14.2 ETH</p>
+                            </div>
+                            <div class="kpi-trend positive">
+                                <i data-lucide="trending-up"></i>
+                                <span>+2.1% hoy</span>
+                            </div>
+                        </div>
+                        <div class="asset-card card">
+                            <div class="asset-header">
+                                <i data-lucide="apple" style="width: 32px; height: 32px; color: #fff;"></i>
+                                <div class="asset-name">
+                                    <h3>Apple Inc.</h3>
+                                    <p>AAPL</p>
+                                </div>
+                            </div>
+                            <div class="asset-balance">
+                                <h2>$18,450.00</h2>
+                                <p>100 Acciones</p>
+                            </div>
+                            <div class="kpi-trend negative">
+                                <i data-lucide="trending-down"></i>
+                                <span>-0.5% hoy</span>
+                            </div>
+                        </div>
+                        <div class="asset-card card">
+                            <div class="asset-header">
+                                <i data-lucide="zap" class="text-accent" style="width: 32px; height: 32px;"></i>
+                                <div class="asset-name">
+                                    <h3>Tesla</h3>
+                                    <p>TSLA</p>
+                                </div>
+                            </div>
+                            <div class="asset-balance">
+                                <h2>$8,400.00</h2>
+                                <p>40 Acciones</p>
+                            </div>
+                            <div class="kpi-trend positive">
+                                <i data-lucide="trending-up"></i>
+                                <span>+1.2% hoy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Transactions -->
+            <div class="app-view" id="view-transactions">
+                <div class="dashboard-content">
+                    <div class="header-title">
+                        <h1>Libro de Transacciones</h1>
+                        <p>Historial completo de movimientos y filtros.</p>
+                    </div>
+                    <div class="transactions-section card">
+                        <div class="card-header" style="flex-wrap: wrap; gap: 1rem;">
+                            <div class="search-bar" style="max-width: 300px; flex: 1;">
+                                <i data-lucide="search"></i>
+                                <input type="text" placeholder="Buscar por nombre, fecha...">
+                            </div>
+                            <select class="custom-select">
+                                <option>Todos los estados</option>
+                                <option>Completado</option>
+                                <option>Procesando</option>
+                                <option>Fallido</option>
+                            </select>
+                            <select class="custom-select">
+                                <option>Últimos 30 días</option>
+                                <option>Este mes</option>
+                                <option>Año actual</option>
+                            </select>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Detalle</th>
+                                        <th>Categoría</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+                                        <th class="text-right">Monto</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="tx-detail">
+                                                <div class="tx-icon positive"><i data-lucide="arrow-down-left"></i></div>
+                                                <div>
+                                                    <p class="tx-name">Liquidación Upwork</p>
+                                                    <p class="tx-sub">Wire Transfer</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Ingresos</td>
+                                        <td>15 Jun, 2026</td>
+                                        <td><span class="badge badge-success">Completado</span></td>
+                                        <td class="text-right positive">+$ 4,200.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="tx-detail">
+                                                <div class="tx-icon negative"><i data-lucide="arrow-up-right"></i></div>
+                                                <div>
+                                                    <p class="tx-name">AWS Web Services</p>
+                                                    <p class="tx-sub">Tarjeta final 4092</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Tecnología</td>
+                                        <td>14 Jun, 2026</td>
+                                        <td><span class="badge badge-success">Completado</span></td>
+                                        <td class="text-right">-$ 125.50</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="tx-detail">
+                                                <div class="tx-icon neutral"><i data-lucide="shopping-bag"></i></div>
+                                                <div>
+                                                    <p class="tx-name">Nike Store</p>
+                                                    <p class="tx-sub">Tarjeta final 8831</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Compras</td>
+                                        <td>12 Jun, 2026</td>
+                                        <td><span class="badge badge-warning">Procesando</span></td>
+                                        <td class="text-right">-$ 140.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Analytics -->
+            <div class="app-view" id="view-analytics">
+                <div class="dashboard-content">
+                    <div class="header-title">
+                        <h1>Analíticas y Presupuestos</h1>
+                        <p>Desglose detallado de tus finanzas.</p>
+                    </div>
+                    <div class="main-grid">
+                        <div class="chart-section card">
+                            <div class="card-header">
+                                <h3>Desglose de Gastos</h3>
+                            </div>
+                            <div class="chart-container" style="display: flex; justify-content: center; align-items: center; min-height: 300px;">
+                                <canvas id="expenseChart" style="max-height: 250px;"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Presupuestos Mensuales</h3>
+                            </div>
+                            <div class="budget-list">
+                                <div class="budget-item">
+                                    <div class="budget-header">
+                                        <span>Tecnología y Software</span>
+                                        <span>$450 / $500</span>
+                                    </div>
+                                    <div class="progress-bar-bg"><div class="progress-bar-fill warning" style="width: 90%;"></div></div>
+                                </div>
+                                <div class="budget-item">
+                                    <div class="budget-header">
+                                        <span>Comida y Restaurantes</span>
+                                        <span>$200 / $600</span>
+                                    </div>
+                                    <div class="progress-bar-bg"><div class="progress-bar-fill positive" style="width: 33%;"></div></div>
+                                </div>
+                                <div class="budget-item">
+                                    <div class="budget-header">
+                                        <span>Ocio y Entretenimiento</span>
+                                        <span>$320 / $300</span>
+                                    </div>
+                                    <div class="progress-bar-bg"><div class="progress-bar-fill negative" style="width: 100%;"></div></div>
+                                    <small class="text-negative" style="display: block; margin-top: 0.2rem;">Límite excedido</small>
+                                </div>
+                                <div class="budget-item">
+                                    <div class="budget-header">
+                                        <span>Transporte</span>
+                                        <span>$50 / $150</span>
+                                    </div>
+                                    <div class="progress-bar-bg"><div class="progress-bar-fill positive" style="width: 33%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View: Cards -->
+            <div class="app-view" id="view-cards">
+                <div class="dashboard-content">
+                    <div class="header-title">
+                        <h1>Billetera Digital</h1>
+                        <p>Gestión de tarjetas físicas y virtuales.</p>
+                    </div>
+                    <div class="cards-grid">
+                        <div class="credit-card-wrapper">
+                            <div class="credit-card premium">
+                                <div class="card-chip"><i data-lucide="cpu" style="width: 32px; height: 32px;"></i></div>
+                                <div class="card-type"><i data-lucide="gem" style="width: 24px; height: 24px;"></i></div>
+                                <div class="card-number">**** **** **** 4092</div>
+                                <div class="card-bottom">
+                                    <div class="card-holder">
+                                        <small>Card Holder</small>
+                                        <p>MIRKO USER</p>
+                                    </div>
+                                    <div class="card-expires">
+                                        <small>Expires</small>
+                                        <p>12/28</p>
+                                    </div>
+                                </div>
+                                <div class="card-glow"></div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn-text text-positive"><i data-lucide="eye"></i> Mostrar CVV</button>
+                                <button class="btn-text text-negative"><i data-lucide="lock"></i> Congelar</button>
+                            </div>
+                        </div>
+                        <div class="credit-card-wrapper">
+                            <div class="credit-card virtual">
+                                <div class="card-chip"><i data-lucide="nfc" style="width: 32px; height: 32px;"></i></div>
+                                <div class="card-type"><i data-lucide="credit-card" style="width: 24px; height: 24px;"></i></div>
+                                <div class="card-number">**** **** **** 8831</div>
+                                <div class="card-bottom">
+                                    <div class="card-holder">
+                                        <small>Card Holder</small>
+                                        <p>MIRKO USER</p>
+                                    </div>
+                                    <div class="card-expires">
+                                        <small>Expires</small>
+                                        <p>04/27</p>
+                                    </div>
+                                </div>
+                                <div class="card-glow"></div>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn-text text-positive"><i data-lucide="eye"></i> Mostrar CVV</button>
+                                <button class="btn-text text-negative"><i data-lucide="lock"></i> Congelar</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Add New Card -->
+                        <div class="credit-card-wrapper">
+                            <div class="credit-card add-new-card">
+                                <i data-lucide="plus-circle" style="width: 48px; height: 48px; margin-bottom: 1rem;"></i>
+                                <h3>Solicitar Nueva Tarjeta</h3>
+                                <p>Virtual o Física</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modals -->
+            <!-- Add Contact Modal -->
+            <div class="modal-overlay" id="contact-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Agregar Nuevo Destinatario</h3>
+                        <button class="icon-btn" id="close-contact-modal"><i data-lucide="x"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group-modal">
+                            <label>Nombre Completo</label>
+                            <input type="text" id="new-contact-name" placeholder="Ej. Roberto Sánchez">
+                        </div>
+                        <button class="btn-primary w-100" id="save-contact-btn">Guardar Destinatario</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
