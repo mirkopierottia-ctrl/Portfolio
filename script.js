@@ -570,67 +570,101 @@ if(canvas) {
 // Timeline Card Expansion Logic
 const globalModal = document.getElementById('global-card-modal');
 const cardOverlay = document.getElementById('card-overlay');
-const expandBtns = document.querySelectorAll('.expand-btn');
+const timelineCardsEx = document.querySelectorAll('.timeline-card:not(.timeline-end)');
 
 if (globalModal && cardOverlay) {
-    expandBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const card = e.target.closest('.timeline-card');
+    timelineCardsEx.forEach(card => {
+        card.addEventListener('click', (e) => {
             const expandedContent = card.querySelector('.card-expanded-content');
             
-            if (expandedContent) {
+            // Prevent multiple clicks if already animating/open
+            if (expandedContent && globalModal.style.display !== 'flex') {
+                const rect = card.getBoundingClientRect();
+                
                 // Populate modal with content
                 globalModal.innerHTML = expandedContent.innerHTML;
                 globalModal.style.display = 'flex';
+                
+                // Select elements for staggering inside the cloned content
+                const childrenToAnimate = globalModal.querySelectorAll('.expanded-header, .tech-section, .tech-stack-expanded');
+                gsap.set(childrenToAnimate, { opacity: 0, y: 30 });
                 
                 // Show overlay and modal with GSAP
                 const tl = gsap.timeline();
                 
                 cardOverlay.classList.add('active');
                 
-                // Set initial state for modal
+                // Set initial state for modal directly over the clicked card
                 gsap.set(globalModal, {
-                    opacity: 0,
-                    scale: 0.8,
-                    y: 50,
-                    pointerEvents: 'auto'
+                    top: rect.top,
+                    left: rect.left,
+                    width: rect.width,
+                    height: rect.height,
+                    opacity: 1,
+                    pointerEvents: 'auto',
+                    borderRadius: '32px'
                 });
                 
-                // Animate in
+                // Mega Animation: Fly to center and expand
                 tl.to(globalModal, {
+                    top: '5vh',
+                    left: '5vw',
+                    width: '90vw',
+                    height: '90vh',
+                    duration: 0.8,
+                    ease: "power4.inOut"
+                })
+                .to(childrenToAnimate, {
                     opacity: 1,
-                    scale: 1,
                     y: 0,
-                    duration: 0.6,
-                    ease: "expo.out"
-                });
+                    duration: 0.5,
+                    stagger: 0.1,
+                    ease: "power2.out"
+                }, "-=0.3");
                 
                 // Initialize close button event listener for the cloned content
                 const closeBtn = globalModal.querySelector('.close-card-btn');
                 if (closeBtn) {
-                    closeBtn.addEventListener('click', closeCardModal);
+                    closeBtn.addEventListener('click', (ev) => {
+                        ev.stopPropagation(); // prevent re-triggering card
+                        
+                        const closeIcon = closeBtn.querySelector('i');
+                        if(closeIcon) {
+                            gsap.to(closeIcon, { rotation: 180, scale: 0.8, duration: 0.4, ease: "power2.inOut" });
+                        }
+                        
+                        const closeTl = gsap.timeline({
+                            onComplete: () => {
+                                globalModal.style.display = 'none';
+                                globalModal.innerHTML = ''; // Clean up
+                                cardOverlay.classList.remove('active');
+                            }
+                        });
+                        
+                        closeTl.to(childrenToAnimate, {
+                            opacity: 0,
+                            y: -20,
+                            duration: 0.3,
+                            stagger: 0.05,
+                            ease: "power2.in"
+                        })
+                        .to(globalModal, {
+                            top: rect.top,
+                            left: rect.left,
+                            width: rect.width,
+                            height: rect.height,
+                            opacity: 0,
+                            duration: 0.6,
+                            ease: "power4.inOut"
+                        }, "-=0.2");
+                    });
                 }
             }
         });
     });
     
-    function closeCardModal() {
-        const tl = gsap.timeline({
-            onComplete: () => {
-                globalModal.style.display = 'none';
-                globalModal.innerHTML = ''; // Clean up
-                cardOverlay.classList.remove('active');
-            }
-        });
-        
-        tl.to(globalModal, {
-            opacity: 0,
-            scale: 0.9,
-            y: 30,
-            duration: 0.4,
-            ease: "power2.in"
-        });
-    }
-    
-    cardOverlay.addEventListener('click', closeCardModal);
+    cardOverlay.addEventListener('click', () => {
+        const closeBtn = globalModal.querySelector('.close-card-btn');
+        if(closeBtn) closeBtn.click();
+    });
 }

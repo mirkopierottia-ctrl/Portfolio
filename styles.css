@@ -514,6 +514,10 @@ body.dark-mode .hero-terminal {
     z-index: 1;
 }
 
+.timeline-card:not(.timeline-end) {
+    cursor: pointer;
+}
+
 .timeline-card:hover {
     transform: translateY(-10px);
     border-color: var(--accent);
@@ -570,26 +574,30 @@ body.dark-mode .hero-terminal {
     justify-content: center;
 }
 
-.expand-btn {
+.card-hint {
     margin-top: 2rem;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-main);
-    padding: 0.8rem 1.5rem;
-    border-radius: 30px;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 0.5rem;
-    cursor: pointer;
+    color: var(--accent);
+    font-size: 0.95rem;
     font-weight: 600;
-    font-size: 0.9rem;
+    opacity: 0.5;
     transition: var(--transition);
-    align-self: flex-start;
 }
 
-.expand-btn:hover {
-    background: var(--text-main);
-    color: var(--bg-main);
+.timeline-card:hover .card-hint {
+    opacity: 1;
+    transform: translateX(10px);
+}
+
+#global-card-modal {
+    position: fixed;
+    z-index: 9999;
+    background: var(--bg-card);
+    border: 1px solid var(--accent);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    overflow: hidden;
 }
 
 .card-expanded-content {
@@ -624,9 +632,17 @@ body.dark-mode .hero-terminal {
     transition: var(--transition);
 }
 
+.close-card-btn i {
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
 .close-card-btn:hover {
     background: var(--accent);
     color: white;
+}
+
+.close-card-btn:hover i {
+    transform: rotate(90deg) scale(1.1);
 }
 
 .expanded-header {
