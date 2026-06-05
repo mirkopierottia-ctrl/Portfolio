@@ -456,8 +456,29 @@ body.dark-mode .hero-terminal {
     padding: 8rem 0;
 }
 
+/* Bottom and Top fades for a professional seamless transition */
+.experience::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 150px;
+    background: linear-gradient(to bottom, var(--bg-main) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 5;
+}
+
 .experience::after {
     content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 250px;
+    background: linear-gradient(to top, var(--bg-main) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Center radial glow on the grid */
+.experience-glow {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     background: radial-gradient(circle at center, transparent 0%, #050505 75%);
