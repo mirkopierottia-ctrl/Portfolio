@@ -289,38 +289,37 @@ projects.forEach((project, index) => {
         }
     );
 
-    // 3D Hover Effect
-    const visual = project.querySelector('.project-visual');
-    if(visual) {
-        project.addEventListener('mousemove', (e) => {
-            const rect = project.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            // Calculate rotation (-10 to +10 degrees)
-            const rotateY = ((x / rect.width) - 0.5) * 20;
-            const rotateX = ((y / rect.height) - 0.5) * -20;
-            
-            gsap.to(visual, {
-                rotationY: rotateY,
-                rotationX: rotateX,
-                transformPerspective: 1000,
-                scale: 1.05,
-                duration: 0.6,
-                ease: "power2.out"
-            });
-        });
+    // 3D Hover Effect on the entire card
+    project.addEventListener('mousemove', (e) => {
+        const rect = project.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
         
-        project.addEventListener('mouseleave', () => {
-            gsap.to(visual, {
-                rotationY: 0,
-                rotationX: 0,
-                scale: 1,
-                duration: 0.8,
-                ease: "elastic.out(1, 0.5)"
-            });
+        // Calculate rotation (-15 to +15 degrees for more drama)
+        const rotateY = ((x / rect.width) - 0.5) * 30;
+        const rotateX = ((y / rect.height) - 0.5) * -30;
+        
+        gsap.to(project, {
+            rotationY: rotateY,
+            rotationX: rotateX,
+            transformPerspective: 1200,
+            scale: 1.03, // Slight scale up of the entire card
+            duration: 0.6,
+            ease: "power2.out",
+            zIndex: 10 // bring to front when hovering
         });
-    }
+    });
+    
+    project.addEventListener('mouseleave', () => {
+        gsap.to(project, {
+            rotationY: 0,
+            rotationX: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: "elastic.out(1, 0.5)",
+            zIndex: 1
+        });
+    });
 });
 
 // About Section Animation (Philosophy Text Reveal)
