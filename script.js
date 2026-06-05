@@ -268,22 +268,59 @@ if (splashScreen) {
     typeCode();
 }
 
-// Project Cards Scroll Animations
+// Project Cards Scroll Animations & 3D Hover
 const projects = document.querySelectorAll('.project-card');
 
 projects.forEach((project, index) => {
-    gsap.from(project, {
-        scrollTrigger: {
-            trigger: project,
-            start: "top 80%",
-            end: "bottom 20%",
-            toggleActions: "play none none reverse"
-        },
-        y: 100,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out"
-    });
+    // Better Entrance Animation using fromTo to avoid GSAP recording bugs
+    gsap.fromTo(project, 
+        { y: 80, opacity: 0, rotationX: -10 },
+        {
+            scrollTrigger: {
+                trigger: project,
+                start: "top 90%", // Trigger slightly earlier
+                toggleActions: "play none none none" // Just play once, don't hide again
+            },
+            y: 0,
+            opacity: 1,
+            rotationX: 0,
+            duration: 1.2,
+            ease: "expo.out"
+        }
+    );
+
+    // 3D Hover Effect
+    const visual = project.querySelector('.project-visual');
+    if(visual) {
+        project.addEventListener('mousemove', (e) => {
+            const rect = project.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Calculate rotation (-10 to +10 degrees)
+            const rotateY = ((x / rect.width) - 0.5) * 20;
+            const rotateX = ((y / rect.height) - 0.5) * -20;
+            
+            gsap.to(visual, {
+                rotationY: rotateY,
+                rotationX: rotateX,
+                transformPerspective: 1000,
+                scale: 1.05,
+                duration: 0.6,
+                ease: "power2.out"
+            });
+        });
+        
+        project.addEventListener('mouseleave', () => {
+            gsap.to(visual, {
+                rotationY: 0,
+                rotationX: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: "elastic.out(1, 0.5)"
+            });
+        });
+    }
 });
 
 // About Section Animation (Philosophy Text Reveal)
@@ -382,7 +419,7 @@ if (track && experienceSection) {
     const trackWidth = track.offsetWidth;
     const windowWidth = window.innerWidth;
     
-    gsap.to(track, {
+    const horizontalScroll = gsap.to(track, {
         x: () => -(trackWidth - windowWidth), // Exact slide to end
         ease: "none",
         scrollTrigger: {
@@ -391,6 +428,25 @@ if (track && experienceSection) {
             scrub: 1,
             end: () => "+=" + trackWidth
         }
+    });
+
+    // Storytelling Focus Effect
+    const cards = document.querySelectorAll('.timeline-card:not(.timeline-end)');
+    cards.forEach(card => {
+        gsap.set(card, { scale: 0.8, opacity: 0.4 });
+        
+        const tlFocus = gsap.timeline({
+            scrollTrigger: {
+                trigger: card,
+                containerAnimation: horizontalScroll,
+                start: "left 85%", // enters screen
+                end: "right 15%",  // leaves screen
+                scrub: 1
+            }
+        });
+        
+        tlFocus.to(card, { scale: 1, opacity: 1, borderColor: "var(--accent)", ease: "power1.inOut", duration: 1 })
+               .to(card, { scale: 0.8, opacity: 0.4, borderColor: "var(--border-color)", ease: "power1.inOut", duration: 1 });
     });
 }
 
@@ -594,69 +650,115 @@ if (globalModal && cardOverlay) {
                 
                 cardOverlay.classList.add('active');
                 
-                // Set initial state for modal directly over the clicked card
+                // Super clean morphing animation using a proxy block to avoid clipping/reflow bugs
+                const morphBlock = document.createElement('div');
+                morphBlock.style.position = 'fixed';
+                morphBlock.style.top = rect.top + 'px';
+                morphBlock.style.left = rect.left + 'px';
+                morphBlock.style.width = rect.width + 'px';
+                morphBlock.style.height = rect.height + 'px';
+                morphBlock.style.backgroundColor = 'var(--bg-card)';
+                morphBlock.style.borderRadius = '32px';
+                morphBlock.style.zIndex = 9998; // below modal
+                morphBlock.style.boxShadow = '0 40px 100px rgba(0,0,0,0.5)';
+                document.body.appendChild(morphBlock);
+
+                // Set initial state for modal at its final dimensions, but hidden
                 gsap.set(globalModal, {
-                    top: rect.top,
-                    left: rect.left,
-                    width: rect.width,
-                    height: rect.height,
-                    opacity: 1,
-                    pointerEvents: 'auto',
-                    borderRadius: '32px'
-                });
-                
-                // Mega Animation: Fly to center and expand
-                tl.to(globalModal, {
                     top: '5vh',
                     left: '5vw',
                     width: '90vw',
                     height: '90vh',
-                    duration: 0.8,
-                    ease: "power4.inOut"
+                    opacity: 0, // Start hidden
+                    pointerEvents: 'auto',
+                    borderRadius: '24px',
+                    clipPath: 'none',
+                    backgroundColor: 'transparent'
+                });
+                
+                // Hyper-complex Animation: Proxy Morph
+                tl.to(card, {
+                    scale: 0.95,
+                    opacity: 0,
+                    duration: 0.3,
+                    ease: "power2.out"
                 })
+                .to(morphBlock, {
+                    top: '5vh',
+                    left: '5vw',
+                    width: '90vw',
+                    height: '90vh',
+                    borderRadius: '24px',
+                    duration: 0.8,
+                    ease: "expo.inOut"
+                }, "-=0.1")
+                .to(globalModal, {
+                    opacity: 1,
+                    duration: 0.3,
+                    ease: "power2.out"
+                }, "-=0.2")
                 .to(childrenToAnimate, {
                     opacity: 1,
                     y: 0,
-                    duration: 0.5,
+                    duration: 0.6,
                     stagger: 0.1,
-                    ease: "power2.out"
+                    ease: "back.out(1.2)"
                 }, "-=0.3");
+                
+                // Do not hide morph block, let it serve as the background layer
+                // so the text doesn't lose its background.
                 
                 // Initialize close button event listener for the cloned content
                 const closeBtn = globalModal.querySelector('.close-card-btn');
                 if (closeBtn) {
+                    closeBtn.style.zIndex = "9999"; // Ensure it sits above all other content
                     closeBtn.addEventListener('click', (ev) => {
                         ev.stopPropagation(); // prevent re-triggering card
                         
                         const closeIcon = closeBtn.querySelector('i');
                         if(closeIcon) {
-                            gsap.to(closeIcon, { rotation: 180, scale: 0.8, duration: 0.4, ease: "power2.inOut" });
+                            // Spin 360 degrees and shrink, Nocturno style
+                            gsap.to(closeIcon, { rotation: "+=360", scale: 0, opacity: 0, duration: 0.6, ease: "back.in(2)" });
                         }
+                        
+                        morphBlock.style.display = 'block';
                         
                         const closeTl = gsap.timeline({
                             onComplete: () => {
                                 globalModal.style.display = 'none';
                                 globalModal.innerHTML = ''; // Clean up
                                 cardOverlay.classList.remove('active');
+                                morphBlock.remove();
+                                gsap.set(card, { scale: 1, opacity: 1, clearProps: "all" }); // safety reset
                             }
                         });
                         
                         closeTl.to(childrenToAnimate, {
                             opacity: 0,
                             y: -20,
-                            duration: 0.3,
+                            duration: 0.2,
                             stagger: 0.05,
                             ease: "power2.in"
                         })
                         .to(globalModal, {
+                            opacity: 0,
+                            duration: 0.2
+                        }, "-=0.1")
+                        .to(morphBlock, {
                             top: rect.top,
                             left: rect.left,
                             width: rect.width,
                             height: rect.height,
-                            opacity: 0,
-                            duration: 0.6,
-                            ease: "power4.inOut"
-                        }, "-=0.2");
+                            borderRadius: '32px',
+                            duration: 0.8,
+                            ease: "expo.inOut"
+                        })
+                        .to(card, {
+                            scale: 1,
+                            opacity: 1,
+                            duration: 0.5,
+                            ease: "power2.out"
+                        }, "-=0.3");
                     });
                 }
             }
