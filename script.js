@@ -103,6 +103,22 @@ document.addEventListener('mousemove', (e) => {
             ease: 'power2.out'
         });
     }
+
+    // 4. Hero Terminal 3D Tilt
+    const heroTerminal = document.querySelector('.hero-terminal');
+    if (heroTerminal) {
+        const xPosTerm = (e.clientX / window.innerWidth - 0.5) * 20;
+        const yPosTerm = (e.clientY / window.innerHeight - 0.5) * 20;
+        
+        gsap.to(heroTerminal, {
+            rotationY: xPosTerm,
+            rotationX: -yPosTerm,
+            transformPerspective: 1000,
+            transformOrigin: "center center",
+            duration: 1,
+            ease: 'power2.out'
+        });
+    }
 });
 
 // Hover effect for cursor
@@ -155,13 +171,53 @@ heroTl.from('.navbar', {
     duration: 1
 }, "-=0.5");
 
+// Interactive Hero Terminal Typing Animation
+const terminalBody = document.getElementById('terminal-body');
+function typeCode() {
+    if (!terminalBody) return;
+    
+    const codeLines = [
+        '<div class="code-line"><span class="keyword">const</span> <span class="variable">developer</span> = {</div>',
+        '<div class="code-line indent-1"><span class="property">name</span>: <span class="string">\'Mirko Pierotti\'</span>,</div>',
+        '<div class="code-line indent-1"><span class="property">role</span>: <span class="string">\'Frontend Engineer\'</span>,</div>',
+        '<div class="code-line indent-1"><span class="property">skills</span>: [<span class="string">\'React\'</span>, <span class="string">\'GSAP\'</span>, <span class="string">\'WebGL\'</span>],</div>',
+        '<div class="code-line indent-1"><span class="property">status</span>: <span class="string">\'Available for hire\'</span></div>',
+        '<div class="code-line">};</div>',
+        '<div class="code-line empty"></div>',
+        '<div class="code-line"><span class="keyword">await</span> developer.<span class="method">initialize</span>();</div>',
+        '<div class="code-line type-cursor">&nbsp;</div>'
+    ];
+    
+    let currentLine = 0;
+    terminalBody.innerHTML = '';
+    
+    function addLine() {
+        if (currentLine < codeLines.length) {
+            const prevCursor = terminalBody.querySelector('.type-cursor');
+            if (prevCursor) prevCursor.remove();
+            
+            terminalBody.innerHTML += codeLines[currentLine];
+            currentLine++;
+            
+            setTimeout(addLine, Math.random() * 200 + 100);
+        }
+    }
+    
+    setTimeout(addLine, 1000);
+}
+
 // Splash Screen Logic
 const splashScreen = document.getElementById('splash-screen');
 const splashProgressBar = document.getElementById('splash-progress-bar');
 const splashCounter = document.getElementById('splash-counter');
+const splashRest = document.querySelector('.splash-rest');
+const splashDot = document.querySelector('.splash-dot');
 
 if (splashScreen) {
     lenis.stop(); // Disable scroll during loading
+    
+    if(splashDot) gsap.set(splashDot, { opacity: 0, x: -20, display: 'inline-block' });
+    
     let loadProgress = { val: 0 };
     gsap.to(loadProgress, {
         val: 100,
@@ -172,13 +228,33 @@ if (splashScreen) {
             if (splashProgressBar) splashProgressBar.style.width = loadProgress.val + "%";
         },
         onComplete: () => {
-            gsap.to(splashScreen, {
+            const logoTl = gsap.timeline();
+            
+            if(splashRest && splashDot) {
+                logoTl.to(splashRest, {
+                    width: 0,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power3.inOut"
+                })
+                .to(splashDot, {
+                    opacity: 1,
+                    x: 0,
+                    duration: 0.4,
+                    ease: "back.out(1.7)"
+                }, "-=0.2");
+            }
+
+            logoTl.to(splashScreen, {
                 yPercent: -100,
                 duration: 1.2,
                 ease: "expo.inOut",
+                delay: 0.4,
                 onStart: () => {
-                    // Play hero timeline smoothly as the curtain goes up
-                    setTimeout(() => { heroTl.play(); }, 300);
+                    setTimeout(() => { 
+                        heroTl.play(); 
+                        typeCode();
+                    }, 300);
                 },
                 onComplete: () => {
                     lenis.start();
@@ -189,6 +265,7 @@ if (splashScreen) {
     });
 } else {
     heroTl.play();
+    typeCode();
 }
 
 // Project Cards Scroll Animations
