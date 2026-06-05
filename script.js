@@ -268,6 +268,25 @@ if (splashScreen) {
     typeCode();
 }
 
+// Section Header Animation
+const workHeader = document.querySelector('.work .section-header');
+if (workHeader) {
+    gsap.fromTo(workHeader,
+        { y: 40, opacity: 0 },
+        {
+            scrollTrigger: {
+                trigger: workHeader,
+                start: "top 85%",
+                toggleActions: "play none none none"
+            },
+            y: 0,
+            opacity: 1,
+            duration: 1.2,
+            ease: "expo.out"
+        }
+    );
+}
+
 // Project Cards Scroll Animations & 3D Hover
 const projects = document.querySelectorAll('.project-card');
 
@@ -278,14 +297,15 @@ projects.forEach((project, index) => {
         {
             scrollTrigger: {
                 trigger: project,
-                start: "top 90%", // Trigger slightly earlier
-                toggleActions: "play none none none" // Just play once, don't hide again
+                start: "top 85%", // Appears as we scroll down
+                toggleActions: "play none none none" // Just play once
             },
             y: 0,
             opacity: 1,
             rotationX: 0,
             duration: 1.2,
-            ease: "expo.out"
+            ease: "expo.out",
+            delay: 0.2 // Small delay so header appears first if both are in view
         }
     );
 
@@ -304,9 +324,10 @@ projects.forEach((project, index) => {
             rotationX: rotateX,
             transformPerspective: 1200,
             scale: 1.03, // Slight scale up of the entire card
-            duration: 0.6,
+            duration: 0.5,
             ease: "power2.out",
-            zIndex: 10 // bring to front when hovering
+            zIndex: 10, // bring to front when hovering
+            overwrite: "auto" // CRITICAL: kills conflicting previous mousemove tweens
         });
     });
     
