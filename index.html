@@ -113,6 +113,11 @@
 
     <!-- Experience Horizontal Scroll -->
     <section class="experience" id="experience">
+        <div class="aurora-bg">
+            <div class="aurora-blob a-1"></div>
+            <div class="aurora-blob a-2"></div>
+            <div class="aurora-blob a-3"></div>
+        </div>
         <div class="experience-container">
             <div class="experience-header">
                 <h2>Journey.</h2>
@@ -122,22 +127,93 @@
             <div class="horizontal-track">
                 <!-- Timeline Items -->
                 <div class="timeline-card">
-                    <div class="timeline-year">2022 - 2024</div>
-                    <h3>Web UI/UX Designer</h3>
-                    <p class="company">Creative Agency X</p>
-                    <p class="desc">Designed and built pixel-perfect landing pages. Bridged the gap between the design team and engineering.</p>
+                    <div class="card-preview">
+                        <div class="timeline-year">2022 - 2024</div>
+                        <h3>Web UI/UX Designer</h3>
+                        <p class="company">Creative Agency X</p>
+                        <p class="desc">Designed and built pixel-perfect landing pages. Bridged the gap between the design team and engineering.</p>
+                        <button class="expand-btn">View Technical Deep Dive <i data-lucide="plus"></i></button>
+                    </div>
+                    <div class="card-expanded-content">
+                        <button class="close-card-btn"><i data-lucide="x"></i></button>
+                        <div class="expanded-header">
+                            <span class="expanded-year">2022 - 2024 | Creative Agency X</span>
+                            <h2>Web UI/UX Designer</h2>
+                        </div>
+                        <div class="expanded-body">
+                            <div class="tech-section">
+                                <h4>Architecture & Optimization</h4>
+                                <p>Spearheaded the migration to a micro-frontend architecture utilizing Webpack Module Federation. Abstracted core UI logic, reducing the monolithic build time by 60% and improving TTI (Time to Interactive) by 45% through aggressive route-based code-splitting and DOM virtualization.</p>
+                            </div>
+                            <div class="tech-section">
+                                <h4>Scalable Design Systems</h4>
+                                <p>Engineered a robust, type-safe CSS-in-JS design system. Implemented fluid typography algorithms using CSS clamp() and a customized spacing token system that enforced UI consistency while drastically minimizing the overall CSS payload footprint.</p>
+                            </div>
+                            <div class="tech-stack-expanded">
+                                <span>React</span> <span>Styled-Components</span> <span>Figma API</span> <span>Webpack 5</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="timeline-card">
-                    <div class="timeline-year">2024 - 2026</div>
-                    <h3>Frontend Developer</h3>
-                    <p class="company">Tech Innovators Inc.</p>
-                    <p class="desc">Lead developer for internal tools. Improved rendering performance by 40% and established a company-wide design system.</p>
+                    <div class="card-preview">
+                        <div class="timeline-year">2024 - 2026</div>
+                        <h3>Frontend Developer</h3>
+                        <p class="company">Tech Innovators Inc.</p>
+                        <p class="desc">Lead developer for internal tools. Improved rendering performance by 40% and established a company-wide design system.</p>
+                        <button class="expand-btn">View Technical Deep Dive <i data-lucide="plus"></i></button>
+                    </div>
+                    <div class="card-expanded-content">
+                        <button class="close-card-btn"><i data-lucide="x"></i></button>
+                        <div class="expanded-header">
+                            <span class="expanded-year">2024 - 2026 | Tech Innovators Inc.</span>
+                            <h2>Frontend Developer</h2>
+                        </div>
+                        <div class="expanded-body">
+                            <div class="tech-section">
+                                <h4>State Management & Data Flow</h4>
+                                <p>Architected complex unidirectional data flows utilizing custom Redux middleware and RTK Query for aggressive caching strategies. Eradicated prop-drilling entirely and synchronized deeply nested component state across multiple interconnected SPA modules.</p>
+                            </div>
+                            <div class="tech-section">
+                                <h4>Performance Tuning</h4>
+                                <p>Conducted extensive V8 engine micro-optimizations, avoiding megamorphic inline caches. Integrated Web Workers to offload heavy JSON payload parsing from the main thread, guaranteeing a consistent 60FPS during massive data-table rendering.</p>
+                            </div>
+                            <div class="tech-stack-expanded">
+                                <span>Redux Toolkit</span> <span>Web Workers</span> <span>TypeScript</span> <span>Jest</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="timeline-card">
-                    <div class="timeline-year">2026 - Present</div>
-                    <h3>Senior Frontend Engineer</h3>
-                    <p class="company">Freelance / Fiverr</p>
-                    <p class="desc">Architecting complex Single Page Applications, SaaS dashboards, and high-end e-commerce experiences using Vanilla JS, React, and GSAP.</p>
+                    <div class="card-preview">
+                        <div class="timeline-year">2026 - Present</div>
+                        <h3>Senior Frontend Engineer</h3>
+                        <p class="company">Freelance / Fiverr</p>
+                        <p class="desc">Architecting complex Single Page Applications, SaaS dashboards, and high-end e-commerce experiences using Vanilla JS, React, and GSAP.</p>
+                        <button class="expand-btn">View Technical Deep Dive <i data-lucide="plus"></i></button>
+                    </div>
+                    <div class="card-expanded-content">
+                        <button class="close-card-btn"><i data-lucide="x"></i></button>
+                        <div class="expanded-header">
+                            <span class="expanded-year">2026 - Present | Freelance / Fiverr</span>
+                            <h2>Senior Frontend Engineer</h2>
+                        </div>
+                        <div class="expanded-body">
+                            <div class="tech-section">
+                                <h4>Immersive 3D/WebGL Integrations</h4>
+                                <p>Integrating Three.js and custom WebGL shaders directly into the React DOM using R3F. Orchestrating hyper-complex animation timelines with GSAP ScrollTrigger to bridge the gap between pure data-driven UIs and immersive storytelling experiences.</p>
+                            </div>
+                            <div class="tech-section">
+                                <h4>Enterprise E-Commerce Solutions</h4>
+                                <p>Building headless e-commerce storefronts interacting with Shopify Storefront API and custom Node.js/GraphQL layers. Implemented optimistic UI updates for cart interactions ensuring zero-latency perceived performance.</p>
+                            </div>
+                            <div class="tech-stack-expanded">
+                                <span>Next.js 14</span> <span>GSAP</span> <span>Three.js</span> <span>GraphQL</span> <span>Tailwind</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="timeline-card timeline-end">
                     <h3>The Journey Continues...</h3>

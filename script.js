@@ -566,3 +566,71 @@ if(canvas) {
         mouse.y = undefined;
     });
 }
+
+// Timeline Card Expansion Logic
+const globalModal = document.getElementById('global-card-modal');
+const cardOverlay = document.getElementById('card-overlay');
+const expandBtns = document.querySelectorAll('.expand-btn');
+
+if (globalModal && cardOverlay) {
+    expandBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const card = e.target.closest('.timeline-card');
+            const expandedContent = card.querySelector('.card-expanded-content');
+            
+            if (expandedContent) {
+                // Populate modal with content
+                globalModal.innerHTML = expandedContent.innerHTML;
+                globalModal.style.display = 'flex';
+                
+                // Show overlay and modal with GSAP
+                const tl = gsap.timeline();
+                
+                cardOverlay.classList.add('active');
+                
+                // Set initial state for modal
+                gsap.set(globalModal, {
+                    opacity: 0,
+                    scale: 0.8,
+                    y: 50,
+                    pointerEvents: 'auto'
+                });
+                
+                // Animate in
+                tl.to(globalModal, {
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    duration: 0.6,
+                    ease: "expo.out"
+                });
+                
+                // Initialize close button event listener for the cloned content
+                const closeBtn = globalModal.querySelector('.close-card-btn');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', closeCardModal);
+                }
+            }
+        });
+    });
+    
+    function closeCardModal() {
+        const tl = gsap.timeline({
+            onComplete: () => {
+                globalModal.style.display = 'none';
+                globalModal.innerHTML = ''; // Clean up
+                cardOverlay.classList.remove('active');
+            }
+        });
+        
+        tl.to(globalModal, {
+            opacity: 0,
+            scale: 0.9,
+            y: 30,
+            duration: 0.4,
+            ease: "power2.in"
+        });
+    }
+    
+    cardOverlay.addEventListener('click', closeCardModal);
+}
