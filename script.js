@@ -119,31 +119,6 @@ document.addEventListener('mousemove', (e) => {
             ease: 'power2.out'
         });
     }
-
-    // 5. Project Cards Global 3D Tilt (matches hero terminal logic)
-    const projects = document.querySelectorAll('.project-card');
-    projects.forEach(project => {
-        const rect = project.getBoundingClientRect();
-        const cardCenterX = rect.left + rect.width / 2;
-        const cardCenterY = rect.top + rect.height / 2;
-        
-        // Calculate rotation based on distance from mouse to card center
-        const deltaX = e.clientX - cardCenterX;
-        const deltaY = e.clientY - cardCenterY;
-        
-        const rotateY = (deltaX / window.innerWidth) * 40; // scales smoothly
-        const rotateX = -(deltaY / window.innerHeight) * 40;
-        
-        gsap.to(project, {
-            rotationY: rotateY,
-            rotationX: rotateX,
-            transformPerspective: 1200,
-            transformOrigin: "center center",
-            duration: 1,
-            ease: 'power2.out',
-            overwrite: "auto"
-        });
-    });
 });
 
 // Hover effect for cursor
@@ -312,25 +287,58 @@ if (workHeader) {
     );
 }
 
-// Project Cards Scroll Animations
+// Project Cards Scroll Animations & Hover
 const projectsList = document.querySelectorAll('.project-card');
 
 projectsList.forEach((project, index) => {
-    // Pure Fade-in & Slide-up Entrance Animation
+    // Pure Fade-in from Black Entrance Animation
     gsap.fromTo(project, 
-        { y: 120, opacity: 0 },
+        { y: 120, opacity: 0, filter: "brightness(0)" },
         {
             scrollTrigger: {
                 trigger: project,
                 start: "top 80%", // Appears as we scroll down
-                toggleActions: "play none none none" // Just play once
+                toggleActions: "play none none none"
             },
             y: 0,
             opacity: 1,
+            filter: "brightness(1)",
             duration: 1.5,
             ease: "power3.out"
         }
     );
+
+    // 3D Hover Effect on the entire card (LOCAL ONLY)
+    project.addEventListener('mousemove', (e) => {
+        const rect = project.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const rotateY = ((x / rect.width) - 0.5) * 30;
+        const rotateX = ((y / rect.height) - 0.5) * -30;
+        
+        gsap.to(project, {
+            rotationY: rotateY,
+            rotationX: rotateX,
+            transformPerspective: 1200,
+            scale: 1.03, // Slight scale up
+            duration: 0.5,
+            ease: "power2.out",
+            zIndex: 10,
+            overwrite: "auto" // Prevents lag/stutter
+        });
+    });
+    
+    project.addEventListener('mouseleave', () => {
+        gsap.to(project, {
+            rotationY: 0,
+            rotationX: 0,
+            scale: 1,
+            duration: 0.8,
+            ease: "elastic.out(1, 0.5)",
+            zIndex: 1
+        });
+    });
 });
 
 // About Section Animation (Philosophy Text Reveal)
