@@ -1,0 +1,200 @@
+:root {
+    --color-bg-dark: #0a0a0a;
+    --color-text-light: #e8e6e1;
+    --color-bg-light: #e8e6e1;
+    --color-text-dark: #0a0a0a;
+    --color-accent: #4a0404; /* Very deep, subtle crimson */
+
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    /* Smooth transition for background color changes */
+    transition: background-color 1s ease, color 1s ease;
+    cursor: none; /* Hide default cursor */
+}
+
+/* Custom Inverted Cursor */
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+}
+
+/* Typography Base */
+h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-weight: 300;
+}
+
+/* --- Hero Section --- */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    color: rgba(232, 230, 225, 0.6);
+}
+
+.main-title {
+    font-size: clamp(4rem, 12vw, 12rem);
+    line-height: 0.9;
+    margin-bottom: 3rem;
+}
+
+/* For animating lines of text */
+.line {
+    display: block;
+    overflow: hidden; /* Hides text before it slides up */
+}
+
+.reveal-text {
+    display: inline-block;
+    transform: translateY(100%); /* Start pushed down out of view */
+}
+
+.scroll-prompt {
+    position: absolute;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: rgba(232, 230, 225, 0.4);
+}
+
+/* --- Story Sections (Editorial Layout) --- */
+.story-section {
+    padding: 20vh 5vw;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10vw;
+}
+
+/* Reverse layout for alternating sections */
+.story-section.reverse .container {
+    flex-direction: row-reverse;
+}
+
+.text-column {
+    flex: 1;
+    max-width: 500px;
+}
+
+.eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 2rem;
+    opacity: 0.6;
+}
+
+.section-title {
+    font-size: clamp(3rem, 6vw, 6rem);
+    line-height: 1;
+    margin-bottom: 2.5rem;
+}
+
+.body-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0.8;
+    font-weight: 300;
+}
+
+.img-column {
+    flex: 1;
+    width: 100%;
+}
+
+.img-mask {
+    width: 100%;
+    height: 80vh; /* Very tall elegant portrait aspect ratio */
+    overflow: hidden;
+    /* Mask starts completely closed (bottom line) */
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+}
+
+.parallax-img {
+    width: 100%;
+    height: 130%; /* Taller than mask for parallax */
+    object-fit: cover;
+    transform: translateY(0);
+}
+
+/* --- Footer --- */
+.footer {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.footer-title {
+    font-size: clamp(3rem, 8vw, 8rem);
+    margin-bottom: 3rem;
+}
+
+.inquire-btn {
+    background: transparent;
+    border: 1px solid currentColor;
+    color: currentColor;
+    padding: 1.2rem 3rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    cursor: none; /* Hide cursor over button to let custom cursor handle it */
+    transition: all 0.4s ease;
+}
+
+.inquire-btn:hover {
+    background: currentColor;
+    color: var(--color-bg-dark); /* Assume it's on dark background */
+}
+
+/* Utility for fading elements up */
+.fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+}

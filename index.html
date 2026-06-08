@@ -301,49 +301,76 @@
                         </ul>
                     </div>
                 </a>
+
+                <!-- Project 4: NEXUS AGENCY -->
+                <a href="nexus-agency/index.html" class="project-card">
+                    <div class="project-image-wrapper">
+                        <div class="project-visual nexus-visual">
+                            <h2>NEXUS</h2>
+                            <p>Creative Agency</p>
+                            <i data-lucide="triangle" style="width: 48px; height: 48px; margin-top: 1rem; color: #a855f7;"></i>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>NEXUS Creative</h3>
+                        <p>Experiencia inmersiva con renderizado WebGL puro. Implementación de Raymarching interactivo, shaders GLSL nativos y aberración cromática reaccionando al scroll y cursor.</p>
+                        <ul class="tech-list">
+                            <li>Three.js / WebGL</li>
+                            <li>GLSL Shaders</li>
+                            <li>Raymarching</li>
+                            <li>GSAP</li>
+                        </ul>
+                    </div>
+                </a>
+            </div> <!-- End projects-grid -->
+
+            <!-- Github Fullstack banner -->
+            <div class="github-projects-banner">
+                <div class="banner-content">
+                    <i data-lucide="github" style="width: 32px; height: 32px; margin-bottom: 1rem;"></i>
+                    <h3>Full-Stack & Server-Side Apps</h3>
+                    <p>Looking for my advanced SaaS architectures and Next.js applications? Platforms like <strong>SpaceHub</strong> (Multi-tenant SaaS) and <strong>Cogni Test</strong> (Interactive Quiz App) require Node.js servers to run.</p>
+                </div>
+                <div class="banner-actions">
+                    <a href="https://github.com/mirkopierottia-ctrl/Portfolio" target="_blank" class="github-btn">
+                        View Source on GitHub <i data-lucide="arrow-up-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- About & Contact -->
+    <!-- About & Contact (Redesigned) -->
     <section class="about-contact" id="contact">
-        <div class="container">
-            <div class="split-layout">
-                <div class="about-col">
-                    <h2>Philosophy</h2>
-                    <p class="about-text">I believe that the web should be both functional and beautiful. My approach bridges the gap between robust software engineering and pixel-perfect design aesthetics. If you are looking for a developer who understands both the "how it works" and the "how it feels", you're in the right place.</p>
+        <div class="parallax-bg-elements">
+            <div class="glow-orb orb-1"></div>
+            <div class="glow-orb orb-2"></div>
+        </div>
+        <div class="container contact-container">
+            <div class="philosophy-massive">
+                <h2 class="ph-title">Philosophy.</h2>
+                <div class="ph-text">
+                    I believe that the web should be both 
+                    <span class="highlight">functional</span> and 
+                    <span class="highlight">beautiful</span>.<br>
+                    Bridging the gap between robust software engineering and pixel-perfect design aesthetics.
                 </div>
-                <div class="contact-col">
-                    <h2>Let's build something extraordinary.</h2>
-                    
-                    <form id="contact-form" class="custom-form">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" required placeholder="John Doe">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" required placeholder="john@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" required rows="4" placeholder="Tell me about your project..."></textarea>
-                        </div>
-                        <button type="submit" id="submit-btn" class="btn-submit">
-                            <span class="btn-text">Send Message</span>
-                            <i data-lucide="send" class="btn-icon"></i>
-                        </button>
-                        <div id="form-success" class="form-success" style="display: none;">
-                            <i data-lucide="check-circle"></i> Message sent successfully!
-                        </div>
-                    </form>
+            </div>
 
-                    <div class="social-links">
-                        <a href="#">LinkedIn</a>
-                        <a href="#">GitHub</a>
-                        <a href="https://www.fiverr.com/mirkopierotti/buying?source=avatar_menu_profile" target="_blank">Fiverr Profile</a>
-                        <a href="mailto:mirkopierottia@gmail.com">Email Me</a>
+            <div class="contact-massive">
+                <h2 class="ct-title">Let's build something extraordinary.</h2>
+                <a href="mailto:mirkopierottia@gmail.com?subject=Let's%20build%20something%20extraordinary&body=Hi%20Mirko,%0D%0A%0D%0AI'd%20like%20to%20discuss%20a%20project%20with%20you." class="giant-mail-btn" id="giant-mail-btn">
+                    <span class="mail-text">mirkopierottia@gmail.com</span>
+                    <div class="mail-hover-reveal">
+                        <span>Click to Send Email</span>
+                        <i data-lucide="arrow-up-right"></i>
                     </div>
+                </a>
+
+                <div class="social-links-redesign">
+                    <a href="#" class="social-link">LinkedIn <i data-lucide="arrow-up-right"></i></a>
+                    <a href="#" class="social-link">GitHub <i data-lucide="arrow-up-right"></i></a>
+                    <a href="https://www.fiverr.com/mirkopierotti/buying?source=avatar_menu_profile" target="_blank" class="social-link">Fiverr <i data-lucide="arrow-up-right"></i></a>
                 </div>
             </div>
         </div>

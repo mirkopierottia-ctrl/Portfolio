@@ -54,6 +54,9 @@ if (themeToggle) {
             icon.setAttribute('data-lucide', 'moon');
         }
         lucide.createIcons(); // Re-render the icon
+        
+        // Dispatch custom event so particles can listen
+        window.dispatchEvent(new Event('themeToggled'));
     });
 }
 
@@ -272,7 +275,7 @@ if (splashScreen) {
 const workHeader = document.querySelector('.work .section-header');
 if (workHeader) {
     gsap.fromTo(workHeader,
-        { y: 40, opacity: 0 },
+        { y: 100, opacity: 0, filter: "brightness(0)" },
         {
             scrollTrigger: {
                 trigger: workHeader,
@@ -281,7 +284,8 @@ if (workHeader) {
             },
             y: 0,
             opacity: 1,
-            duration: 1.2,
+            filter: "brightness(1)",
+            duration: 1.5,
             ease: "expo.out"
         }
     );
@@ -291,20 +295,20 @@ if (workHeader) {
 const projectsList = document.querySelectorAll('.project-card');
 
 projectsList.forEach((project, index) => {
-    // Pure Fade-in from Black Entrance Animation
+    // Cinematic Fade-in from Black Entrance Animation
     gsap.fromTo(project, 
-        { y: 120, opacity: 0, filter: "brightness(0)" },
+        { y: 150, opacity: 0, filter: "brightness(0)" },
         {
             scrollTrigger: {
                 trigger: project,
-                start: "top 80%", // Appears as we scroll down
-                toggleActions: "play none none none"
+                start: "top 85%", // Starts when top of card hits 85% of viewport
+                toggleActions: "play none none reverse"
             },
             y: 0,
             opacity: 1,
             filter: "brightness(1)",
             duration: 1.5,
-            ease: "power3.out"
+            ease: "power2.out"
         }
     );
 
@@ -314,8 +318,8 @@ projectsList.forEach((project, index) => {
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         
-        const rotateY = ((x / rect.width) - 0.5) * 30;
-        const rotateX = ((y / rect.height) - 0.5) * -30;
+        const rotateY = ((x / rect.width) - 0.5) * 10;
+        const rotateX = ((y / rect.height) - 0.5) * -10;
         
         gsap.to(project, {
             rotationY: rotateY,
@@ -341,92 +345,125 @@ projectsList.forEach((project, index) => {
     });
 });
 
-// About Section Animation (Philosophy Text Reveal)
-const aboutColTitle = document.querySelector('.about-col h2');
-if (aboutColTitle) {
-    gsap.from(aboutColTitle, {
-        scrollTrigger: {
-            trigger: '.about-col',
-            start: "top 80%"
-        },
-        y: 30,
-        opacity: 0,
-        duration: 1.5,
-        ease: "power4.out"
-    });
-}
+// About & Contact Redesign Animations
+const contactSection = document.querySelector('.about-contact');
 
-const aboutText = document.querySelector('.about-text');
-if (aboutText) {
-    const words = aboutText.innerText.split(' ');
-    aboutText.innerHTML = '';
-    words.forEach(word => {
-        const span = document.createElement('span');
-        span.innerText = word + ' ';
-        span.style.opacity = '0.15';
-        span.style.transition = 'color 0.3s';
-        aboutText.appendChild(span);
-    });
-
-    gsap.to(aboutText.children, {
+if (contactSection) {
+    // Parallax Orbs
+    gsap.to('.orb-1', {
+        y: 200,
+        x: -100,
         scrollTrigger: {
-            trigger: '.about-col',
-            start: "top 75%",
-            end: "bottom 50%",
+            trigger: contactSection,
+            start: "top bottom",
+            end: "bottom top",
             scrub: 1
-        },
-        opacity: 1,
-        stagger: 0.1,
-        ease: "none"
+        }
     });
-}
 
-// Contact Section Cascade Reveal
-const contactColTitle = document.querySelector('.contact-col h2');
-const formGroups = document.querySelectorAll('.form-group');
-const submitBtnAnim = document.querySelector('.btn-submit');
+    gsap.to('.orb-2', {
+        y: -200,
+        x: 100,
+        scrollTrigger: {
+            trigger: contactSection,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 1
+        }
+    });
 
-const contactTl = gsap.timeline({
-    scrollTrigger: {
-        trigger: '.contact-col',
-        start: "top 75%",
-        toggleActions: "play none none none"
+    // Philosophy Text Reveal
+    const phTitle = document.querySelector('.ph-title');
+    const phText = document.querySelector('.ph-text');
+    
+    if (phTitle) {
+        gsap.from(phTitle, {
+            scrollTrigger: {
+                trigger: contactSection,
+                start: "top 75%"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1.5,
+            ease: "power4.out"
+        });
     }
-});
 
-if (contactColTitle) {
-    contactTl.from(contactColTitle, { y: 30, opacity: 0, duration: 1, ease: "power4.out" });
-}
-if (formGroups.length > 0) {
-    contactTl.from(formGroups, { y: 20, opacity: 0, duration: 1, stagger: 0.1, ease: "power4.out" }, "-=0.5");
-}
-if (submitBtnAnim) {
-    contactTl.from(submitBtnAnim, { scale: 0.9, opacity: 0, duration: 1, ease: "elastic.out(1, 0.5)" }, "-=0.5");
-}
-
-// Magnetic Button Effect
-if (submitBtnAnim) {
-    submitBtnAnim.addEventListener('mousemove', (e) => {
-        const rect = submitBtnAnim.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        gsap.to(submitBtnAnim, {
-            x: x * 0.3,
-            y: y * 0.3,
-            duration: 0.3,
-            ease: "power2.out"
+    if (phText) {
+        gsap.from(phText, {
+            scrollTrigger: {
+                trigger: contactSection,
+                start: "top 70%"
+            },
+            y: 30,
+            opacity: 0,
+            duration: 1.5,
+            delay: 0.2,
+            ease: "power3.out"
         });
+    }
+
+    // Contact Massive Reveal
+    const ctTitle = document.querySelector('.ct-title');
+    const giantMailBtn = document.querySelector('.giant-mail-btn');
+    const socialLinks = document.querySelectorAll('.social-link');
+
+    const contactTl = gsap.timeline({
+        scrollTrigger: {
+            trigger: '.contact-massive',
+            start: "top 80%",
+            toggleActions: "play none none none"
+        }
     });
 
-    submitBtnAnim.addEventListener('mouseleave', () => {
-        gsap.to(submitBtnAnim, {
-            x: 0,
-            y: 0,
-            duration: 0.5,
-            ease: "elastic.out(1, 0.3)"
+    if (ctTitle) {
+        contactTl.from(ctTitle, { y: 20, opacity: 0, duration: 1, ease: "power3.out" });
+    }
+    
+    if (giantMailBtn) {
+        contactTl.from(giantMailBtn, { 
+            y: 50, 
+            opacity: 0, 
+            scale: 0.95,
+            duration: 1.2, 
+            ease: "power4.out" 
+        }, "-=0.5");
+    }
+
+    if (socialLinks.length > 0) {
+        contactTl.from(socialLinks, {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out"
+        }, "-=0.8");
+    }
+    
+    // Magnetic Button Effect for the Giant Mail Button
+    if (giantMailBtn) {
+        giantMailBtn.addEventListener('mousemove', (e) => {
+            const rect = giantMailBtn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            gsap.to(giantMailBtn, {
+                x: x * 0.1,
+                y: y * 0.1,
+                duration: 0.5,
+                ease: "power2.out"
+            });
         });
-    });
+
+        giantMailBtn.addEventListener('mouseleave', () => {
+            gsap.to(giantMailBtn, {
+                x: 0,
+                y: 0,
+                duration: 0.8,
+                ease: "elastic.out(1, 0.3)"
+            });
+        });
+    }
 }
 
 // GSAP Horizontal Scroll for Experience
@@ -468,50 +505,6 @@ if (track && experienceSection) {
     });
 }
 
-// Contact Form Interactive Logic
-const contactForm = document.getElementById('contact-form');
-const submitBtn = document.getElementById('submit-btn');
-const formSuccess = document.getElementById('form-success');
-const btnIcon = submitBtn.querySelector('.btn-icon');
-const btnText = submitBtn.querySelector('.btn-text');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Prevent page reload
-        
-        // 1. Loading State
-        btnText.textContent = 'Sending...';
-        btnIcon.setAttribute('data-lucide', 'loader-2');
-        btnIcon.classList.add('spin');
-        lucide.createIcons();
-        submitBtn.style.pointerEvents = 'none'; // Prevent double click
-        
-        // 2. Simulate Async Network Request (2 seconds)
-        setTimeout(() => {
-            // Success State
-            btnIcon.classList.remove('spin');
-            btnIcon.setAttribute('data-lucide', 'check');
-            btnText.textContent = 'Sent';
-            lucide.createIcons();
-            submitBtn.style.backgroundColor = '#00C853'; // Success Green
-            
-            // Show success message and clear form
-            formSuccess.style.display = 'flex';
-            contactForm.reset();
-            
-            // Revert button after 3 seconds
-            setTimeout(() => {
-                btnText.textContent = 'Send Message';
-                btnIcon.setAttribute('data-lucide', 'send');
-                lucide.createIcons();
-                submitBtn.style.backgroundColor = '';
-                submitBtn.style.pointerEvents = 'auto';
-                formSuccess.style.display = 'none';
-            }, 3000);
-            
-        }, 2000);
-    });
-}
 
 // Interactive Particle Constellation System
 const canvas = document.getElementById('hero-particles');
@@ -536,19 +529,26 @@ if(canvas) {
         initParticles();
     });
 
+    function getThemeColors(opacity = 1) {
+        const isDark = document.body.classList.contains('dark-mode');
+        return {
+            fill: isDark ? '#00FF9D' : '#0066FF',
+            stroke: isDark ? `rgba(0, 255, 157, ${opacity})` : `rgba(0, 102, 255, ${opacity})`
+        };
+    }
+
     class Particle {
-        constructor(x, y, directionX, directionY, size, color) {
+        constructor(x, y, directionX, directionY, size) {
             this.x = x;
             this.y = y;
             this.directionX = directionX;
             this.directionY = directionY;
             this.size = size;
-            this.color = color;
         }
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-            ctx.fillStyle = this.color;
+            ctx.fillStyle = getThemeColors().fill;
             ctx.fill();
         }
         update() {
@@ -590,10 +590,14 @@ if(canvas) {
             let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
             let directionX = (Math.random() * 1.5) - 0.75;
             let directionY = (Math.random() * 1.5) - 0.75;
-            let color = '#0066FF';
-            particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+            particlesArray.push(new Particle(x, y, directionX, directionY, size));
         }
     }
+
+    // Re-initialize or redraw particles on theme toggle
+    window.addEventListener('themeToggled', () => {
+        // Just let the animation loop handle color update automatically
+    });
 
     function connectParticles() {
         for (let a = 0; a < particlesArray.length; a++) {
@@ -607,9 +611,9 @@ if(canvas) {
                     
                     let opacityValue = 1 - (distance / 15000);
                     if(mDistance < mouse.radius) {
-                        ctx.strokeStyle = 'rgba(0, 102, 255,' + opacityValue * 0.8 + ')'; 
+                        ctx.strokeStyle = getThemeColors(opacityValue * 0.8).stroke; 
                     } else {
-                        ctx.strokeStyle = 'rgba(0, 102, 255,' + opacityValue * 0.15 + ')'; 
+                        ctx.strokeStyle = getThemeColors(opacityValue * 0.15).stroke; 
                     }
                     ctx.lineWidth = 1;
                     ctx.beginPath();

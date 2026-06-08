@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINETIX | Urban Bounce</title>
+    
+    <!-- Google Fonts: Oswald for huge brutalist headers, Inter for UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- 3D Canvas Background -->
+    <div id="canvas-container"></div>
+    
+    <!-- Animated POP Background -->
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    
+    <!-- Loader -->
+    <div id="loader">
+        <div class="loader-bg top"></div>
+        <div class="loader-bg bottom"></div>
+        <div class="loader-content">
+            <h1 class="loader-title">KINETIX</h1>
+            <div class="loader-progress">0%</div>
+        </div>
+    </div>
+
+    <!-- UI Overlay -->
+    <nav class="navbar">
+        <a href="../index.html" class="logo-link">
+            <i data-lucide="arrow-left"></i> <span>PORTFOLIO</span>
+        </a>
+        <div class="brand">KINETIX</div>
+        <button class="shop-btn">SHOP NOW</button>
+    </nav>
+
+    <!-- Main Scroll Content -->
+    <main class="scroll-content">
+        
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-bg-text marquee-left">
+                <span>KINETIX</span><span>KINETIX</span><span>KINETIX</span>
+            </div>
+            <div class="hero-bg-text marquee-right outline">
+                <span>URBAN</span><span>URBAN</span><span>URBAN</span>
+            </div>
+            
+            <div class="hero-foreground">
+                <h2 class="drop-text">DEFY<br>GRAVITY.</h2>
+                <p class="subtitle">The ultimate street bounce. Available now.</p>
+            </div>
+            
+            <div class="scroll-down">
+                <span>SCROLL</span>
+                <i data-lucide="arrow-down"></i>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="feature-block left">
+                <h3>AERO<br>BOUNCE</h3>
+                <p>Engineered with micro-foam technology. Every step returns 40% more kinetic energy back to your stride.</p>
+            </div>
+            
+            <div class="feature-block right">
+                <h3>HYPER<br>GRIP</h3>
+                <p>Street-tested rubber compound that sticks to concrete like glue, rain or shine. Absolute control.</p>
+            </div>
+        </section>
+
+        <!-- Material Inspector Section (New Premium Filler) -->
+        <section class="material-inspector">
+            <div class="technical-data">
+                <div class="tech-line"></div>
+                <p class="tech-title">QUANTUM MICRO-FIBER</p>
+                <p class="tech-desc">Molecular-level woven mesh providing absolute thermal regulation and 0% drag.</p>
+            </div>
+            
+            <div class="crosshair-target">
+                <div class="crosshair crosshair-top"></div>
+                <div class="crosshair crosshair-bottom"></div>
+                <div class="crosshair crosshair-left"></div>
+                <div class="crosshair crosshair-right"></div>
+                <div class="crosshair-center"></div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2 class="huge-text">READY?</h2>
+                <div class="magnetic-wrap">
+                    <button class="massive-btn">PRE-ORDER $180</button>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Libraries -->
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GLTFLoader -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    
+    <!-- Main Script -->
+    <script src="script.js"></script>
+</body>
+</html>

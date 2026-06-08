@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sangre de Los Andes</title>
+    
+    <!-- Ultra-Premium Fonts: Cormorant Garamond for Serifs, Inter for Sans-Serif Tracking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Custom Inverted Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Main Wrapper for Smooth Scroll -->
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
+            
+            <!-- Hero Section: Pure Typography & Black Space -->
+            <section class="hero" data-color="dark">
+                <div class="hero-content">
+                    <p class="subtitle reveal-text">THE ANDES COLLECTION</p>
+                    <h1 class="main-title">
+                        <span class="line"><span class="reveal-text">Sangre</span></span>
+                        <span class="line"><span class="reveal-text">de Los Andes</span></span>
+                    </h1>
+                    <p class="scroll-prompt reveal-text">SCROLL TO DESCEND</p>
+                </div>
+            </section>
+
+            <!-- Image Reveal Section -->
+            <section class="story-section" data-color="dark">
+                <div class="container">
+                    <div class="text-column">
+                        <p class="eyebrow fade-up">01. ORIGIN</p>
+                        <h2 class="section-title fade-up">Born in<br>Silence</h2>
+                        <p class="body-text fade-up">In the highest altitudes of Mendoza, the air is thin and the earth is unforgiving. Here, the vines do not grow; they struggle. They dig deep into ancient rock to find water, extracting a mineral purity that defines our vintage.</p>
+                    </div>
+                    <div class="img-column">
+                        <div class="img-mask">
+                            <img src="https://images.unsplash.com/photo-1596435422849-0fa4a9b6c1ff?q=80&w=1500&auto=format&fit=crop" alt="Mendoza Mountains" class="parallax-img">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Second Story Section (Reversed) -->
+            <section class="story-section reverse" data-color="light">
+                <div class="container">
+                    <div class="text-column">
+                        <p class="eyebrow fade-up">02. THE HARVEST</p>
+                        <h2 class="section-title fade-up">Blood of<br>the Earth</h2>
+                        <p class="body-text fade-up">Hand-picked under the violent sun, each cluster is a testament to survival. The result is a liquid so dense, so profound, it mirrors the very soil from which it was bled.</p>
+                    </div>
+                    <div class="img-column">
+                        <div class="img-mask">
+                            <img src="https://images.unsplash.com/photo-1584916201218-f4242ceb4809?q=80&w=1500&auto=format&fit=crop" alt="Pouring Wine" class="parallax-img">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <h2 class="footer-title fade-up">Taste the Altitude.</h2>
+                <button class="inquire-btn fade-up">REQUEST ALLOCATION</button>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
