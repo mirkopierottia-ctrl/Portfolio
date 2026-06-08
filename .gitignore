@@ -2,9 +2,8 @@
 AGENTS.md
 CLAUDE.md
 *.pdf
-*.png
-*.jpg
-*.jpeg
+Gemini_Generated_Image*.png
+professional_headshot*.png
 *.mp4
 
 # Separate Repositories
