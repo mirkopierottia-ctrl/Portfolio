@@ -12,3 +12,11 @@ spacehub-saas/
 cogni-test-demo/
 quantum-web/AGENTS.md
 quantum-web/CLAUDE.md
+
+# Virtual Environments
+venv/
+**/venv/
+__pycache__/
+
+# Screenshots and WhatsApp
+WhatsApp*
